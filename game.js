@@ -21,20 +21,18 @@ var Asteroids = (function(Lib) {
       return asteroids;
     };
 
-    Game.prototype.deleteAsteroids = function () {
-      var newAsteroids = [];
-      var len = this.asteroids.length;
-      for (var i = 0; i < len; i++){
-        var asteroid = this.asteroids[i];
-        if (!asteroid.isHit(this.ship.firedBullets)) {
-          newAsteroids.push(asteroid);
-        } else {
-          newAsteroids.push(
-                      Asteroids.Asteroid.randomAsteroid(this.xDim, this.yDim));
-        }
+    Game.prototype.deleteHitAsteroids = function () {
+      for (var i = 0; i < this.asteroids.length; i++) {
+				for (var j = 0; j < this.ship.firedBullets.length; j++) {
+					if (this.asteroids[i].collidesWith(this.ship.firedBullets[j])) {
+	        	this.removeAsteroid(i);
+						this.ship.removeBullet(j);
+	          this.asteroids.push(
+	                      Asteroids.Asteroid.randomAsteroid(this.xDim, this.yDim));
+						i--; j--; //decrement so looping doesn't break
+					}
+				}
       }
-
-      this.asteroids = newAsteroids;
     };
 
     Game.prototype.draw = function () {
@@ -62,6 +60,10 @@ var Asteroids = (function(Lib) {
       this.ctx.font = "bold 80pt Arial ";
       this.ctx.fillText("GAME OVER.", 60, 410);
     };
+		
+		Game.prototype.removeAsteroid = function (idx) {
+			this.asteroids.splice(idx, 1);
+		}
 
     Game.prototype.update = function () {
       var astLen = this.asteroids.length;
@@ -77,8 +79,8 @@ var Asteroids = (function(Lib) {
       }
 
       this.ship.update(this.xDim, this.yDim);
-      this.ship.deleteBullets();
-      this.deleteAsteroids();
+      this.ship.deleteOffscreenBullets();
+      this.deleteHitAsteroids();
 
       this.draw();
 

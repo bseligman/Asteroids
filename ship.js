@@ -59,23 +59,24 @@ var Asteroids = (function (Lib) {
       }
     };
 
-    Ship.prototype.deleteBullets = function () {
-      var onScreenBullets = [];
-      var len = this.firedBullets.length;
-      for (var i = 0; i < len; i++) {
-        if (!this.firedBullets[i].isOffBoard) {
-          onScreenBullets.push(this.firedBullets[i]);
+    Ship.prototype.deleteOffscreenBullets = function () {
+      for (var i = 0; i < this.firedBullets.length; i++) {
+        if (this.firedBullets[i].isOffBoard) {
+					this.removeBullet(i);
+					i--; //corrects for removed element
         }
       }
-
-      this.firedBullets = onScreenBullets;
     };
 
-    Ship.prototype.fireBullet = function() {
+    Ship.prototype.fireBullet = function () {
       var pos = { x : this.pos.x, y : this.pos.y };
       var newBullet = new Asteroids.Bullet(pos, this.direction);
       this.firedBullets.push(newBullet);
     };
+		
+		Ship.prototype.removeBullet = function (idx) {
+			this.firedBullets.splice(idx, 1)
+		};
 
     return Ship;
   })();
