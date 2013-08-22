@@ -25,7 +25,7 @@ var Asteroids = (function(Lib) {
       var newAsteroids = [];
       var len = this.asteroids.length;
       for (var i = 0; i < len; i++){
-        var asteroid = this.asteroids[i]
+        var asteroid = this.asteroids[i];
         if (!asteroid.isHit(this.ship.firedBullets)) {
           newAsteroids.push(asteroid);
         } else {
@@ -35,7 +35,7 @@ var Asteroids = (function(Lib) {
       }
 
       this.asteroids = newAsteroids;
-    }
+    };
 
     Game.prototype.draw = function () {
       // this.ctx.clearRect(0, 0, this.xDim, this.yDim);
@@ -61,7 +61,7 @@ var Asteroids = (function(Lib) {
       this.ctx.fillStyle = "white";
       this.ctx.font = "bold 80pt Arial ";
       this.ctx.fillText("GAME OVER.", 60, 410);
-    }
+    };
 
     Game.prototype.update = function () {
       var astLen = this.asteroids.length;
@@ -90,7 +90,7 @@ var Asteroids = (function(Lib) {
     Game.prototype.start = function () {
       var that = this;
       gameTimer = window.setInterval(that.update.bind(that), 1);
-    }
+    };
 
     return Game ;
   })();

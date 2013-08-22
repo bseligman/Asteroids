@@ -26,7 +26,7 @@ var Asteroids = (function(Lib) {
       ctx.fill();
     };
 
-    Bullet.prototype.update = function(xDim, yDim) {
+    Bullet.prototype.update = function () {
       this.pos.x += this.velocity.x;
       this.pos.y += this.velocity.y;
     };
@@ -35,7 +35,7 @@ var Asteroids = (function(Lib) {
     Bullet.prototype.getVelocity = function() {
       var acceleration = this.calculateForwardDir();
       return {x : acceleration.x * 2, y : acceleration.y * 2 };
-    }
+    };
 
     return Bullet;
   })();

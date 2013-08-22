@@ -16,8 +16,8 @@ var Asteroids = (function (Lib) {
         { x : maxX * Math.random(),
           y : maxY * Math.random() },
           this.MAX_RADIUS * Math.random() + 8,
-        { x : this.MAX_VELOCITY * (Math.random() - .5),
-          y : this.MAX_VELOCITY * (Math.random() - .5) }
+        { x : this.MAX_VELOCITY * (Math.random() - 0.5),
+          y : this.MAX_VELOCITY * (Math.random() - 0.5) }
       );
     };
 
